@@ -83,7 +83,11 @@ src="https://www.facebook.com/tr?id=1691911351803132&ev=PageView&noscript=1"
     </div>
 
     <div class="actions">
-      <a class="btn btn--primary" href="group.html?v=2" id="cta-telegram-group">
+      <a
+        class="btn btn--primary"
+        href="success.html?fb="
+        onclick="try { if (typeof fbq === 'function') fbq('track', 'Lead'); } catch (e) {}"
+      >
         <span class="btn__label">Перейти в Telegram-групу</span>
       </a>
       <a class="btn btn--ghost" href="https://telegram.org/apps" target="_blank" rel="noopener noreferrer">
@@ -94,21 +98,6 @@ src="https://www.facebook.com/tr?id=1691911351803132&ev=PageView&noscript=1"
     <p class="hint">Немає Telegram? Натисни «Завантажити Telegram» — обери телефон або комп’ютер, встанови й повернися сюди.</p>
   </main>
   </div>
-  <script>
-    (function () {
-      var el = document.getElementById("cta-telegram-group");
-      if (!el) return;
-      el.addEventListener("click", function (e) {
-        e.preventDefault();
-        try {
-          if (typeof fbq === "function") fbq("track", "Lead");
-        } catch (err) {}
-        setTimeout(function () {
-          window.location.href = "group.html?v=2";
-        }, 300);
-      });
-    })();
-  </script>
   <script src="theme.js"></script>
 </body>
 </html>
