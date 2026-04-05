@@ -60,7 +60,6 @@ src="https://www.facebook.com/tr?id=1691911351803132&ev=PageView&noscript=1"
         Перенаправлення через <span id="bridge-sec">3</span> с…
       </p>
       <div class="actions bridge__actions">
-        <!-- Не ставимо href на t.me: у WebView Telegram це відкриває групу одразу, без цієї сторінки -->
         <button type="button" class="btn btn--primary bridge__open" id="bridge-now">
           <span class="btn__label">Відкрити Telegram зараз</span>
         </button>
@@ -71,24 +70,30 @@ src="https://www.facebook.com/tr?id=1691911351803132&ev=PageView&noscript=1"
   <script src="theme.js"></script>
   <script>
     (function () {
-      var TG = "https://t.me/+58oLkZvlFJJhNjdi";
+      /* Посилання не зберігаємо текстом (у WebView Telegram інколи шукає t.me у коді й одразу відкриває чат) */
+      function inviteUrl() {
+        return atob("aHR0cHM6Ly90Lm1lLys1OG9Ma1p2bEZKSmhOamRp");
+      }
       var sec = 3;
       var secEl = document.getElementById("bridge-sec");
       var label = document.getElementById("bridge-countdown");
-      var t = setInterval(function () {
-        sec -= 1;
-        if (secEl) secEl.textContent = String(Math.max(0, sec));
-        if (sec <= 0) {
-          clearInterval(t);
-          if (label) label.textContent = "Відкриваємо Telegram…";
-          window.location.href = TG;
-        }
-      }, 1000);
+      var timerId;
       function goTelegram() {
-        clearInterval(t);
-        window.location.href = TG;
+        if (timerId) clearInterval(timerId);
+        if (label) label.textContent = "Відкриваємо Telegram…";
+        window.location.href = inviteUrl();
       }
       document.getElementById("bridge-now").addEventListener("click", goTelegram);
+      setTimeout(function () {
+        timerId = setInterval(function () {
+          sec -= 1;
+          if (secEl) secEl.textContent = String(Math.max(0, sec));
+          if (sec <= 0) {
+            clearInterval(timerId);
+            goTelegram();
+          }
+        }, 1000);
+      }, 0);
     })();
   </script>
 </body>
