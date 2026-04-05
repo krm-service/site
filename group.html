@@ -60,9 +60,10 @@ src="https://www.facebook.com/tr?id=1691911351803132&ev=PageView&noscript=1"
         Перенаправлення через <span id="bridge-sec">3</span> с…
       </p>
       <div class="actions bridge__actions">
-        <a class="btn btn--primary" id="bridge-now" href="https://t.me/+58oLkZvlFJJhNjdi" target="_blank" rel="noopener noreferrer">
+        <!-- Не ставимо href на t.me: у WebView Telegram це відкриває групу одразу, без цієї сторінки -->
+        <button type="button" class="btn btn--primary bridge__open" id="bridge-now">
           <span class="btn__label">Відкрити Telegram зараз</span>
-        </a>
+        </button>
       </div>
       <p class="hint"><a class="bridge__back" href="index.html">← Назад на головну</a></p>
     </main>
@@ -83,9 +84,11 @@ src="https://www.facebook.com/tr?id=1691911351803132&ev=PageView&noscript=1"
           window.location.href = TG;
         }
       }, 1000);
-      document.getElementById("bridge-now").addEventListener("click", function () {
+      function goTelegram() {
         clearInterval(t);
-      });
+        window.location.href = TG;
+      }
+      document.getElementById("bridge-now").addEventListener("click", goTelegram);
     })();
   </script>
 </body>
