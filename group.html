@@ -2,99 +2,14 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta id="meta-theme-color" name="theme-color" content="#050914" />
-  <title>Далі — Telegram | KRM Refund</title>
-  <meta name="description" content="Зараз відкриється Telegram-група KRM Refund." />
-  <meta name="robots" content="noindex, nofollow" />
+  <meta http-equiv="refresh" content="0;url=success.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Redirect…</title>
   <script>
-    (function () {
-      try {
-        var k = "krm-theme";
-        var t = localStorage.getItem(k);
-        if (t !== "light" && t !== "dark")
-          t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
-        document.documentElement.setAttribute("data-theme", t);
-        document.documentElement.style.colorScheme = t;
-        var mc = document.querySelector("#meta-theme-color");
-        if (mc) mc.setAttribute("content", t === "light" ? "#eef3fb" : "#050914");
-      } catch (e) {
-        document.documentElement.setAttribute("data-theme", "dark");
-        document.documentElement.style.colorScheme = "dark";
-      }
-    })();
+    location.replace("success.html");
   </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-  <!-- Meta Pixel Code -->
-  <script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1691911351803132');
-fbq('track', 'PageView');
-</script>
-  <noscript><img height="1" width="1" style="display:none" alt=""
-src="https://www.facebook.com/tr?id=1691911351803132&ev=PageView&noscript=1"
-/></noscript>
 </head>
 <body>
-  <div class="noise" aria-hidden="true"></div>
-
-  <div class="page">
-    <main class="main bridge">
-      <h1 class="title bridge__title">
-        Розказую, як заробляти <em>місячну ЗП</em> «як на заводі» — за день, з ліжка
-      </h1>
-      <p class="bridge__lead">
-        Далі все в Telegram: матеріали, розбори й спільнота. Зараз автоматично відкриємо групу — зачекай кілька секунд або натисни кнопку нижче.
-      </p>
-      <p class="bridge__countdown" id="bridge-countdown" aria-live="polite">
-        Перенаправлення через <span id="bridge-sec">3</span> с…
-      </p>
-      <div class="actions bridge__actions">
-        <button type="button" class="btn btn--primary bridge__open" id="bridge-now">
-          <span class="btn__label">Відкрити Telegram зараз</span>
-        </button>
-      </div>
-      <p class="hint"><a class="bridge__back" href="index.html">← Назад на головну</a></p>
-    </main>
-  </div>
-  <script src="theme.js"></script>
-  <script>
-    (function () {
-      /* Посилання не зберігаємо текстом (у WebView Telegram інколи шукає t.me у коді й одразу відкриває чат) */
-      function inviteUrl() {
-        return atob("aHR0cHM6Ly90Lm1lLys1OG9Ma1p2bEZKSmhOamRp");
-      }
-      var sec = 3;
-      var secEl = document.getElementById("bridge-sec");
-      var label = document.getElementById("bridge-countdown");
-      var timerId;
-      function goTelegram() {
-        if (timerId) clearInterval(timerId);
-        if (label) label.textContent = "Відкриваємо Telegram…";
-        window.location.href = inviteUrl();
-      }
-      document.getElementById("bridge-now").addEventListener("click", goTelegram);
-      setTimeout(function () {
-        timerId = setInterval(function () {
-          sec -= 1;
-          if (secEl) secEl.textContent = String(Math.max(0, sec));
-          if (sec <= 0) {
-            clearInterval(timerId);
-            goTelegram();
-          }
-        }, 1000);
-      }, 0);
-    })();
-  </script>
+  <p><a href="success.html">Перейти далі</a></p>
 </body>
 </html>
