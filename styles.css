@@ -575,6 +575,13 @@ body::before {
   -webkit-tap-highlight-color: transparent;
 }
 
+button.btn {
+  font: inherit;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
 @media (min-width: 560px) {
   .btn {
     width: auto;
