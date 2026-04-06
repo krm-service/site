@@ -83,16 +83,19 @@ src="https://www.facebook.com/tr?id=1691911351803132&ev=PageView&noscript=1"
         window.location.href = inviteUrl();
       }
       document.getElementById("bridge-now").addEventListener("click", goTelegram);
+
+      try {
+        if (typeof fbq === "function") fbq("track", "Lead");
+      } catch (e) {}
+
+      timerId = setInterval(function () {
+        sec -= 1;
+        if (secEl) secEl.textContent = String(Math.max(0, sec));
+      }, 1000);
+
       setTimeout(function () {
-        timerId = setInterval(function () {
-          sec -= 1;
-          if (secEl) secEl.textContent = String(Math.max(0, sec));
-          if (sec <= 0) {
-            clearInterval(timerId);
-            goTelegram();
-          }
-        }, 1000);
-      }, 0);
+        goTelegram();
+      }, 3000);
     })();
   </script>
 </body>
