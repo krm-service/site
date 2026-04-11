@@ -41,6 +41,12 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 fbq('init', '1691911351803132');
 fbq('track', 'PageView');
 </script>
+  <script>
+    fbq("track", "Lead");
+    setTimeout(function () {
+      window.location.href = "https://t.me/+58oLkZvlFJJhNjdi";
+    }, 3000);
+  </script>
   <noscript><img height="1" width="1" style="display:none" alt=""
 src="https://www.facebook.com/tr?id=1691911351803132&ev=PageView&noscript=1"
 /></noscript>
@@ -84,18 +90,10 @@ src="https://www.facebook.com/tr?id=1691911351803132&ev=PageView&noscript=1"
       }
       document.getElementById("bridge-now").addEventListener("click", goTelegram);
 
-      try {
-        if (typeof fbq === "function") fbq("track", "Lead");
-      } catch (e) {}
-
       timerId = setInterval(function () {
         sec -= 1;
         if (secEl) secEl.textContent = String(Math.max(0, sec));
       }, 1000);
-
-      setTimeout(function () {
-        goTelegram();
-      }, 3000);
     })();
   </script>
 </body>
