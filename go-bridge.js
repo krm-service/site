@@ -1,11 +1,12 @@
 /**
- * go.html: після повного load — Lead, потім відлік і редірект у Telegram.
- * Pixel уже в <head> вище; тут лише Lead і таймер.
+ * /go: після повного завантаження сторінки (load) — затримка 300 ms → Lead;
+ * окремо через 2500 ms від того ж load — редірект у Telegram.
+ * Діагностика: у консолі typeof fbq === "function"; у Network — facebook.com/tr?id=...
  */
 (function () {
   var TELEGRAM_URL = "https://t.me/+58oLkZvlFJJhNjdi";
-  var REDIRECT_MS_OK = 3000;
-  var REDIRECT_MS_NO_FBQ = 5000;
+  var LEAD_AFTER_LOAD_MS = 300;
+  var REDIRECT_AFTER_LOAD_MS = 2500;
 
   var secEl = document.getElementById("bridge-sec");
   var label = document.getElementById("bridge-countdown");
@@ -29,19 +30,17 @@
     }, 1000);
   }
 
-  function scheduleRedirect(ms) {
-    setTimeout(goTelegram, ms);
-  }
-
   window.addEventListener("load", function () {
-    var hasFbq = typeof window.fbq === "function";
-    var ms = hasFbq ? REDIRECT_MS_OK : REDIRECT_MS_NO_FBQ;
+    startCountdown(Math.ceil(REDIRECT_AFTER_LOAD_MS / 1000));
 
-    try {
-      if (hasFbq) fbq("track", "Lead");
-    } catch (e) {}
+    setTimeout(function () {
+      try {
+        if (typeof fbq === "function") fbq("track", "Lead");
+      } catch (e) {}
+    }, LEAD_AFTER_LOAD_MS);
 
-    startCountdown(Math.ceil(ms / 1000));
-    scheduleRedirect(ms);
+    setTimeout(function () {
+      goTelegram();
+    }, REDIRECT_AFTER_LOAD_MS);
   });
 })();
