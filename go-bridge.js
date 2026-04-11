@@ -1,13 +1,11 @@
 /**
- * Тільки для go.html: після повного завантаження сторінки — Lead, потім редірект у Telegram.
- * Якщо fbq ще недоступний — короткий poll; якщо так і не завантажився — редірект через 5 с.
+ * go.html: після повного load — Lead, потім відлік і редірект у Telegram.
+ * Pixel уже в <head> вище; тут лише Lead і таймер.
  */
 (function () {
   var TELEGRAM_URL = "https://t.me/+58oLkZvlFJJhNjdi";
   var REDIRECT_MS_OK = 3000;
-  var REDIRECT_MS_SLOW = 5000;
-  var FBQ_WAIT_MS = 2000;
-  var FBQ_TICK_MS = 100;
+  var REDIRECT_MS_NO_FBQ = 5000;
 
   var secEl = document.getElementById("bridge-sec");
   var label = document.getElementById("bridge-countdown");
@@ -32,39 +30,18 @@
   }
 
   function scheduleRedirect(ms) {
-    setTimeout(function () {
-      goTelegram();
-    }, ms);
-  }
-
-  function fireLead() {
-    try {
-      if (typeof fbq === "function") fbq("track", "Lead");
-    } catch (e) {}
+    setTimeout(goTelegram, ms);
   }
 
   window.addEventListener("load", function () {
-    var deadline = Date.now() + FBQ_WAIT_MS;
+    var hasFbq = typeof window.fbq === "function";
+    var ms = hasFbq ? REDIRECT_MS_OK : REDIRECT_MS_NO_FBQ;
 
-    function finish(ms) {
-      var sec = Math.ceil(ms / 1000);
-      fireLead();
-      startCountdown(sec);
-      scheduleRedirect(ms);
-    }
+    try {
+      if (hasFbq) fbq("track", "Lead");
+    } catch (e) {}
 
-    function tryAfterPixel() {
-      if (typeof fbq === "function") {
-        finish(REDIRECT_MS_OK);
-        return;
-      }
-      if (Date.now() >= deadline) {
-        finish(REDIRECT_MS_SLOW);
-        return;
-      }
-      setTimeout(tryAfterPixel, FBQ_TICK_MS);
-    }
-
-    tryAfterPixel();
+    startCountdown(Math.ceil(ms / 1000));
+    scheduleRedirect(ms);
   });
 })();
